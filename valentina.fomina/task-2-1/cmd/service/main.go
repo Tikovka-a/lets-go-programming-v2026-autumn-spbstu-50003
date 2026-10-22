@@ -17,14 +17,16 @@ func main() {
 
 	if _, err := fmt.Scan(&blocks); err != nil {
 		fmt.Println("failed to read blocks:", err)
+
 		return
 	}
 
-	for i := 0; i < blocks; i++ {
+	for range blocks {
 		var staffCount int
 
 		if _, err := fmt.Scan(&staffCount); err != nil {
 			fmt.Println("failed to read staff count")
+
 			return
 		}
 
@@ -41,19 +43,22 @@ func main() {
 
 			if _, err := fmt.Scan(&sign, &val); err != nil {
 				fmt.Println("failed to read condition")
+
 				return
 			}
 
-			if sign == ">=" {
+			switch sign {
+			case ">=":
 				if val > bounds.Min {
 					bounds.Min = val
 				}
-			} else if sign == "<=" {
+			case "<=":
 				if val < bounds.Max {
 					bounds.Max = val
 				}
-			} else {
+			default:
 				fmt.Println("unknown operator")
+
 				return
 			}
 
